@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -33,11 +34,11 @@ public class Genre implements Serializable {
     private List<Album> albums = new ArrayList<>();
 
     @ManyToOne
-    @JoinTable(name = "genre_subgenre")
-    public Genre parentGenre;
+    @JoinColumn(name = "genre_parent_id")
+    private Genre parentGenre;
     
     @OneToMany(mappedBy = "parentGenre")
-    public List<Genre> subgenres = new ArrayList<>();
+    private List<Genre> subgenres = new ArrayList<>();
     
     public Long getId() {
         return id;
